@@ -8,7 +8,7 @@ export default function App() {
 
     <BrowserRouter>
         <nav style={{backgroundColor : "#090d20", margin: 0}}>
-          <ul style={{display: "flex", justifyContent : "flex-end",}}>
+          <ul style={{display: "flex", justifyContent : "flex-end", margin: 0}}>
             <li style={{marginRight : "2%",}}><Link to="/" style={{color: "white", textDecoration: "none", fontSize : "1.7em",}}>HOME</Link></li>
             <li style={{marginRight : "3%",}}><Link to="/login" style={{color: "white", textDecoration: "none", fontSize : "1.7em",}}>LOGIN</Link></li>
           </ul>
