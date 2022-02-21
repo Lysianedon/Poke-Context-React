@@ -7,9 +7,8 @@ export default function Login() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        if (data.firstname.length < 15) {
-            return;
-        }
+
+        console.log(data);
     };
   return (
     <DivWrapper>
@@ -32,23 +31,25 @@ const DivWrapper = styled.div`
 
 background-color: #090d20;
 margin: 0;
+height: 100vh;
 padding: 0;
 
 h1 {
     color: white;
     text-align: center;
-    margin-top: 2%;
+    margin-top: 0%;
+}
+
+p {
+    color: white;
 }
 
 `
 
 const  StyledForm = styled.form `
 
-/* display:flex;
-flex-direction: column; */
 width: 80%;
 margin: auto;
-height: 100vh;
 
 input {
     display: block;
@@ -61,9 +62,10 @@ input {
 .submit {
     background-color: #ee639b;
     height: 2.5em;
+    width: 86.5%;
     border-radius: 6px;
     border: solid 1px black;
-    font-size: 4vh ;
+    font-size: 3.4vh ;
     color: white;
     letter-spacing: 1.9px;
     padding: 0;
