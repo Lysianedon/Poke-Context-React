@@ -1,11 +1,19 @@
+import { createContext } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { ThemeContext } from "styled-components";
+
 //Views
 import Home from './components/Home';
 import Login from './components/Login';
 
-export default function App() {
-  return (
+const UserContext = createContext();
 
+export default function App() {
+  const [isLogged, setLogged] = useState(false);
+
+  return (
+    <ThemeContext.Provider value = {}> 
     <BrowserRouter>
         <nav style={{backgroundColor : "#090d20", margin: 0}}>
           <ul style={{display: "flex", justifyContent : "flex-end", margin: 0}}>
@@ -20,6 +28,7 @@ export default function App() {
             <Route exact path="/login" component={Login}></Route>
         </Switch>
     </BrowserRouter>
+    </ThemeContext.Provider>
 
   )
 }
