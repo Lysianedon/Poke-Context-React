@@ -1,32 +1,37 @@
-import React from 'react'
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form"; //Form library 
 import styled from "styled-components"; //Style library
 
 export default function Home() {
 
     const [pokemon, setpokemon] = useState({});
+    const [id, setID] = useState(1);
+
+    function changeRandomNumber() {
+         return Math.floor(Math.random() * 100) + 1;
+      }
+      
 
     //ComponentDidMount
     useEffect( () => {
-        fetch('https://pokeapi.co/api/v2/pokemon/1')
-        .then(res => res.json())
-        .then (res => {
 
-            const namePokemon = res.forms[0].name;
-            console.log("test type 1",res.types[0].type.name);
-            const typesPokemon = (res.types).map(type => {
-                console.log(("types :"));
-                return type.type.name + ', ';
+        setTimeout(() => {
+            
+            fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then(res => res.json())
+            .then (res => {
+    
+                const namePokemon = res.forms[0].name;
+                const typesPokemon = (res.types).map(type => {
+                    return type.type.name + ', ';
+                })
+    
+                setpokemon({name : namePokemon, height : res.height, weight : res.weight, type : typesPokemon,});
+    
             })
-            console.log(res);
+        }, 1000);
+        
 
-            setpokemon({name : namePokemon, height : res.height, weight : res.weight, type : typesPokemon, });
-
-        })
-
-    }, [])
-
+    }, [id])
 
 
   return (
@@ -36,19 +41,25 @@ export default function Home() {
 
         <h1>HOME</h1>
 
-        <input type="button" value="GET A POKEMON" className="button"/>
+        {
+            pokemon !== false ?
+            (<>
+                <input type="button" value="GET A POKEMON" className="button" onClick={() => {setID(changeRandomNumber)}}/>
+        
+                <div className="infos">
+                    <p>Name : {pokemon.name} </p>
+                    <p>Height : {pokemon.height} </p>
+                    <p>Weight : {pokemon.weight} </p>
+                    <p>Type : {pokemon.type}</p>
+                </div>
+                </>
+                )
+            :
+            (<p>Loading...</p>)
+        }
 
-        <div className="infos">
 
-        <p>Name : {pokemon.name} </p>
-        <p>Height : {pokemon.height} </p>
-        <p>Weight : {pokemon.weight} </p>
-        <p>Type : {pokemon.type}</p>
         </div>
-
-        </div>
-
-
     </DivWrapper>
   )
 }

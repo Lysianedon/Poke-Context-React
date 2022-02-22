@@ -1,7 +1,7 @@
 
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled from "styled-components"; //Style library
 
 export default function Login() {
 
@@ -18,7 +18,7 @@ export default function Login() {
         <StyledForm action="post" onSubmit={handleSubmit(onSubmit)}>
 
             <input {...register("firstname", {maxLength : 15})} placeholder="Username" />
-            <input {...register("password", { required: true, minLength : 6 })} placeholder="Password" />
+            <input {...register("password", { required: true, minLength : 6 })} type="password" placeholder="Password" />
 			{errors.firstname && <p>First name must be 15 characters long maximum.</p>}
 			{errors.password && <p>Password must be at least 6 characters long.</p>}
 			<input type="submit" value="SE CONNECTER" className="submit"/>
@@ -48,7 +48,7 @@ p {
 
 const  StyledForm = styled.form `
 
-width: 80%;
+width: 90%;
 margin: auto;
 
 input {
