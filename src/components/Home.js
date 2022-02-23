@@ -1,15 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components"; //Style library
+//UseContext
+import { UserContext } from "../App";
+
+
 
 export default function Home() {
 
     const [pokemon, setpokemon] = useState({});
     const [id, setID] = useState(1);
+    const userContext = useContext(UserContext);
 
     function changeRandomNumber() {
          return Math.floor(Math.random() * 100) + 1;
       }
-      
+
 
     //ComponentDidMount
     useEffect( () => {
@@ -36,30 +42,40 @@ export default function Home() {
 
   return (
     <DivWrapper>
-
-        <div className="div-content">
-
         <h1>HOME</h1>
 
         {
-            pokemon !== false ?
-            (<>
-                <input type="button" value="GET A POKEMON" className="button" onClick={() => {setID(changeRandomNumber)}}/>
+            userContext.isLogged ? 
+            (   
+                    <div className="div-content">
+                {
+                    pokemon !== false ?
+                    (<>
+                        <input type="button" value="GET A POKEMON" className="button" onClick={() => {setID(changeRandomNumber)}}/>
+                
+                        <div className="infos">
+                            <p>Name : {pokemon.name} </p>
+                            <p>Height : {pokemon.height} </p>
+                            <p>Weight : {pokemon.weight} </p>
+                            <p>Type : {pokemon.type}</p>
+                        </div>
+                        </>
+                        )
+                    :
+                    (<p>Loading...</p>)
+                }
         
-                <div className="infos">
-                    <p>Name : {pokemon.name} </p>
-                    <p>Height : {pokemon.height} </p>
-                    <p>Weight : {pokemon.weight} </p>
-                    <p>Type : {pokemon.type}</p>
-                </div>
-                </>
-                )
+                    </div>
+            )
             :
-            (<p>Loading...</p>)
+            (
+                <div className="div-content">
+
+                    <Link to="/login" className="link"> SE CONNECTER</Link>
+                </div>
+            )
         }
-
-
-        </div>
+    
     </DivWrapper>
   )
 }
@@ -100,7 +116,8 @@ p {
     margin-top: 6%;
 }
 
-.button {
+.button,
+.link {
     width: 95%;
     height: 7vh;
     background-color: #ee639b;
@@ -110,6 +127,12 @@ p {
     color: white;
     letter-spacing: 1.9px;
     cursor: pointer;
+}
+
+.link {
+    text-align: center;
+    text-decoration: none;
+    padding-top: 2%;
 }
 
 `
