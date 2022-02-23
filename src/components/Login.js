@@ -2,13 +2,19 @@
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
 import styled from "styled-components"; //Style library
+//UseContext
+import { useContext } from "react";
+import { UserContext } from "../App";
 
 export default function Login() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
+    const userContext = useContext(UserContext);
 
-        console.log(data);
+    const onSubmit = () => {
+
+        userContext.setAuth();
+        // console.log(data);
     };
   return (
     <DivWrapper>
@@ -21,7 +27,14 @@ export default function Login() {
             <input {...register("password", { required: true, minLength : 6 })} type="password" placeholder="Password" />
 			{errors.firstname && <p>First name must be 15 characters long maximum.</p>}
 			{errors.password && <p>Password must be at least 6 characters long.</p>}
-			<input type="submit" value="SE CONNECTER" className="submit"/>
+			{/* <input type="submit" value="SE CONNECTER" className="submit" onClick={onSubmit}/> */}
+
+            {
+                userContext.isLogged ?
+                (<input type="submit" value="SE DÉCONNECTER" className="submit" onClick={onSubmit}/>)
+                :
+                (<input type="submit" value="SE CONNECTER" className="submit" onClick={onSubmit}/>)
+            }
         </StyledForm>
     </DivWrapper>
   )
@@ -48,8 +61,9 @@ p {
 
 const  StyledForm = styled.form `
 
-width: 90%;
+width: 80%;
 margin: auto;
+margin-left: 15%;
 
 input {
     display: block;
