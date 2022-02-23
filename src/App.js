@@ -1,19 +1,30 @@
 import { createContext } from "react";
 import { useState } from "react";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
-import { ThemeContext } from "styled-components";
+// import { ThemeContext } from "styled-components";
 
 //Views
 import Home from './components/Home';
 import Login from './components/Login';
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export default function App() {
   const [isLogged, setLogged] = useState(false);
 
+  const setAuth = () => {
+    console.log("prevlog:", isLogged);
+    setLogged((prevLogged) => !prevLogged)
+  }
+
+  const userContextObject = {
+    isLogged : isLogged,
+    setAuth : setAuth,
+    
+  }
+
   return (
-    <ThemeContext.Provider value = {}> 
+    <UserContext.Provider value={userContextObject} > 
     <BrowserRouter>
         <nav style={{backgroundColor : "#090d20", margin: 0}}>
           <ul style={{display: "flex", justifyContent : "flex-end", margin: 0}}>
@@ -28,7 +39,7 @@ export default function App() {
             <Route exact path="/login" component={Login}></Route>
         </Switch>
     </BrowserRouter>
-    </ThemeContext.Provider>
+    </UserContext.Provider>
 
   )
 }
