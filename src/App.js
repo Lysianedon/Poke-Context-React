@@ -19,8 +19,7 @@ export default function App() {
 
   const userContextObject = {
     isLogged : isLogged,
-    setAuth : setAuth,
-    
+    setAuth : setAuth, 
   }
 
   return (
@@ -32,7 +31,7 @@ export default function App() {
             <li style={{marginRight : "3%",}}><Link to="/login" style={{color: "white", textDecoration: "none", fontSize : "1.7em",}}>LOGIN</Link></li>
           </ul>
         </nav>
-
+        <h3 style={{textAlign: 'center', backgroundColor : '#090d20', color : 'white', margin : 0, pading: '0'}}>Vous êtes connecté: {userContextObject.isLogged.toString()}</h3>
 
         <Switch>
             <Route exact path="/" component={Home}></Route>
